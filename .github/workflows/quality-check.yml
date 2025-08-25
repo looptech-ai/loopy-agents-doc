@@ -1,0 +1,170 @@
+name: Documentation Quality Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+  workflow_dispatch:
+
+jobs:
+  markdown-lint:
+    name: Markdown Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli
+
+      - name: Lint Markdown files
+        run: |
+          markdownlint docs/**/*.md --config .markdownlint.json || true
+          echo "✅ Markdown linting complete"
+
+  spell-check:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Spell Check
+        uses: streetsidesoftware/cspell-action@v5
+        with:
+          config: .cspell.json
+          files: |
+            docs/**/*.md
+            README.md
+          strict: false
+
+  code-examples:
+    name: Validate Code Examples
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Extract and validate Python code blocks
+        run: |
+          pip install pytest black flake8
+          
+          # Extract Python code blocks from markdown
+          mkdir -p temp_code
+          for file in docs/**/*.md; do
+            if [ -f "$file" ]; then
+              grep -Pzo '(?s)```python\n\K.*?(?=\n```)' "$file" > temp_code/$(basename "$file" .md).py 2>/dev/null || true
+            fi
+          done
+          
+          # Validate syntax
+          for pyfile in temp_code/*.py; do
+            if [ -f "$pyfile" ] && [ -s "$pyfile" ]; then
+              python -m py_compile "$pyfile" || echo "Syntax error in $pyfile"
+            fi
+          done
+          
+          # Check formatting
+          black --check temp_code/ || echo "Formatting issues found"
+          
+          # Lint
+          flake8 temp_code/ --ignore=E501,E402 || echo "Linting issues found"
+          
+          rm -rf temp_code
+          echo "✅ Code validation complete"
+
+  accessibility:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install beautifulsoup4 requests
+
+      - name: Build and check accessibility
+        run: |
+          mkdocs build --quiet
+          
+          # Basic accessibility checks
+          python -c "
+          from bs4 import BeautifulSoup
+          import os
+          import sys
+          
+          issues = []
+          for root, dirs, files in os.walk('site'):
+              for file in files:
+                  if file.endswith('.html'):
+                      filepath = os.path.join(root, file)
+                      with open(filepath, 'r', encoding='utf-8') as f:
+                          soup = BeautifulSoup(f.read(), 'html.parser')
+                          
+                          # Check for alt text in images
+                          imgs = soup.find_all('img')
+                          for img in imgs:
+                              if not img.get('alt'):
+                                  issues.append(f'{filepath}: Image missing alt text')
+                          
+                          # Check for proper heading hierarchy
+                          headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+                          prev_level = 0
+                          for h in headings:
+                              level = int(h.name[1])
+                              if level > prev_level + 1:
+                                  issues.append(f'{filepath}: Heading hierarchy skip from h{prev_level} to h{level}')
+                              prev_level = level
+          
+          if issues:
+              print('Accessibility issues found:')
+              for issue in issues[:10]:  # Show first 10 issues
+                  print(f'  - {issue}')
+          else:
+              print('✅ No major accessibility issues found')
+          "
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Trivy security scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'

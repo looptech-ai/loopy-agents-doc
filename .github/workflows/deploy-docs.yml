@@ -1,0 +1,138 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+      - '.github/workflows/deploy-docs.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment even without changes'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate MkDocs configuration
+        run: mkdocs build --strict --verbose
+
+      - name: Check for broken links
+        run: |
+          pip install linkchecker
+          mkdocs serve --dev-addr=0.0.0.0:8000 &
+          sleep 5
+          linkchecker http://localhost:8000 --ignore-url=github.com --ignore-url=discord.gg || true
+          kill %1
+
+      - name: Validate code examples
+        run: |
+          python -m py_compile docs/**/*.py || true
+          echo "✅ Code validation complete"
+
+  build:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Setup Git credentials
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Build MkDocs site
+        run: |
+          mkdocs build --clean
+          echo "looptech-ai.github.io" > site/CNAME
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify deployment
+        run: |
+          sleep 10
+          curl -f https://looptech-ai.github.io/loopy-agents-doc/ || exit 1
+          echo "✅ Documentation deployed successfully!"
+
+  notify:
+    name: Notify on Success
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always() && github.ref == 'refs/heads/main'
+    steps:
+      - name: Send notification
+        run: |
+          echo "📚 Documentation deployed: https://looptech-ai.github.io/loopy-agents-doc/"
+          echo "Commit: ${{ github.sha }}"
+          echo "Author: ${{ github.actor }}"

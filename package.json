@@ -1,0 +1,33 @@
+{
+  "name": "loopy-agents-doc",
+  "version": "1.0.0",
+  "description": "Documentation for Loopy Agents - Claude Code Framework",
+  "scripts": {
+    "install-deps": "pip install -r requirements.txt",
+    "serve": "mkdocs serve --dev-addr=0.0.0.0:8000",
+    "build": "mkdocs build",
+    "deploy": "mkdocs gh-deploy --force",
+    "clean": "rm -rf site/",
+    "dev": "mkdocs serve --livereload",
+    "check-links": "mkdocs build --strict",
+    "preview": "python -m http.server 8001 --directory site/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/looptech-ai/loopy-agents-doc.git"
+  },
+  "keywords": [
+    "claude",
+    "ai",
+    "agents",
+    "mcp",
+    "documentation",
+    "mkdocs"
+  ],
+  "author": "LoopTech AI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/looptech-ai/loopy-agents-doc/issues"
+  },
+  "homepage": "https://looptech-ai.github.io/loopy-agents-doc"
+}

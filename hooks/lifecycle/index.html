@@ -1,0 +1,2034 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Master Claude Code with hooks, agents, MCP servers, and automation patterns">
+      
+      
+        <meta name="author" content="LoopTech AI">
+      
+      
+        <link rel="canonical" href="https://looptech-ai.github.io/loopy-agents-doc/hooks/lifecycle/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../agents/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Lifecycle - Loopy Agents - Claude Code Mastery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hook-lifecycle-events" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Loopy Agents - Claude Code Mastery" class="md-header__button md-logo" aria-label="Loopy Agents - Claude Code Mastery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Loopy Agents - Claude Code Mastery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lifecycle
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/looptech-ai/loopy-agents-doc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    looptech-ai/loopy-agents-doc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Hooks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../agents/" class="md-tabs__link">
+          
+  
+  Agents
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mcp/" class="md-tabs__link">
+          
+  
+  MCP Servers
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Loopy Agents - Claude Code Mastery" class="md-nav__button md-logo" aria-label="Loopy Agents - Claude Code Mastery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Loopy Agents - Claude Code Mastery
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/looptech-ai/loopy-agents-doc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    looptech-ai/loopy-agents-doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Hooks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Hooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Lifecycle
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Lifecycle
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#complete-lifecycle-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Lifecycle Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-sessionstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. SessionStart
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. SessionStart">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-userpromptsubmit" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. UserPromptSubmit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. UserPromptSubmit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pretooluse" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PreToolUse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. PreToolUse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-posttooluse" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. PostToolUse
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-additional-lifecycle-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Additional Lifecycle Events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Additional Lifecycle Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subagentstop" class="md-nav__link">
+    <span class="md-ellipsis">
+      SubagentStop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precompact" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreCompact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hook-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hook Execution Order
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-security-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next: Security Patterns →
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Agents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MCP Servers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            MCP Servers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#complete-lifecycle-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Lifecycle Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-sessionstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. SessionStart
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. SessionStart">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-userpromptsubmit" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. UserPromptSubmit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. UserPromptSubmit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pretooluse" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PreToolUse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. PreToolUse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-posttooluse" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. PostToolUse
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-additional-lifecycle-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Additional Lifecycle Events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Additional Lifecycle Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subagentstop" class="md-nav__link">
+    <span class="md-ellipsis">
+      SubagentStop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precompact" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreCompact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hook-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hook Execution Order
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-security-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next: Security Patterns →
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="hook-lifecycle-events">Hook Lifecycle Events<a class="headerlink" href="#hook-lifecycle-events" title="Permanent link">&para;</a></h1>
+<h2 id="complete-lifecycle-overview">Complete Lifecycle Overview<a class="headerlink" href="#complete-lifecycle-overview" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant U as User
+    participant C as Claude Code
+    participant H as Hooks
+    participant T as Tools
+
+    U-&gt;&gt;C: Start Session
+    C-&gt;&gt;H: SessionStart
+    U-&gt;&gt;C: Submit Prompt
+    C-&gt;&gt;H: UserPromptSubmit
+    C-&gt;&gt;C: Process Request
+    C-&gt;&gt;H: PreToolUse
+    C-&gt;&gt;T: Execute Tool
+    T-&gt;&gt;C: Result
+    C-&gt;&gt;H: PostToolUse
+    C-&gt;&gt;H: Notification
+    C-&gt;&gt;H: Stop
+    C-&gt;&gt;H: PreCompact (if needed)
+    C-&gt;&gt;U: Response</code></pre>
+<h2 id="1-sessionstart">1. SessionStart<a class="headerlink" href="#1-sessionstart" title="Permanent link">&para;</a></h2>
+<p>Triggered when a new Claude Code session begins.</p>
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Initialize development environment</li>
+<li>Load project context</li>
+<li>Set up monitoring</li>
+<li>Configure tools</li>
+</ul>
+<h3 id="example-implementation">Example Implementation<a class="headerlink" href="#example-implementation" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">session_start.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#__codelineno-0-45">45</a></span>
+<span class="normal"><a href="#__codelineno-0-46">46</a></span>
+<span class="normal"><a href="#__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#__codelineno-0-55">55</a></span>
+<span class="normal"><a href="#__codelineno-0-56">56</a></span>
+<span class="normal"><a href="#__codelineno-0-57">57</a></span>
+<span class="normal"><a href="#__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#__codelineno-0-61">61</a></span>
+<span class="normal"><a href="#__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#__codelineno-0-64">64</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="ch">#!/usr/bin/env python3</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">json</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">sys</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kn">import</span> <span class="nn">os</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="k">def</span> <span class="nf">session_start</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize session with project context&quot;&quot;&quot;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="n">session_id</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;session_id&quot;</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">project_path</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_path&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="c1"># Load project configuration</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">load_project_config</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="c1"># Initialize monitoring</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>    <span class="n">init_monitoring</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a>    <span class="c1"># Set up environment</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a>    <span class="n">setup_environment</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a>    <span class="c1"># Log session start</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a>    <span class="n">log_event</span><span class="p">(</span><span class="s2">&quot;session_started&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a>        <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="n">session_id</span><span class="p">,</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a>        <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="n">project_path</span><span class="p">,</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a>        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a>    <span class="p">})</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a>        <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;continue&quot;</span><span class="p">,</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a>        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">config</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a>    <span class="p">}</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="k">def</span> <span class="nf">load_project_config</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Load project-specific configuration&quot;&quot;&quot;</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a>    <span class="n">config_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;.claude&quot;</span><span class="p">,</span> <span class="s2">&quot;config.json&quot;</span><span class="p">)</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a>    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_file</span><span class="p">):</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a>            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a>    <span class="k">return</span> <span class="p">{}</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="k">def</span> <span class="nf">init_monitoring</span><span class="p">(</span><span class="n">session_id</span><span class="p">):</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Start monitoring for this session&quot;&quot;&quot;</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="c1"># Initialize monitoring dashboard</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="k">pass</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="k">def</span> <span class="nf">setup_environment</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Configure environment based on project&quot;&quot;&quot;</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a>    <span class="c1"># Set environment variables</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a>    <span class="c1"># Configure tools</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a>    <span class="k">pass</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="k">def</span> <span class="nf">log_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Log to monitoring system&quot;&quot;&quot;</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;claude_events.log&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">event_type</span><span class="p">,</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="p">})</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">session_start</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="2-userpromptsubmit">2. UserPromptSubmit<a class="headerlink" href="#2-userpromptsubmit" title="Permanent link">&para;</a></h2>
+<p>Processes user input before Claude analyzes it.</p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Prompt enhancement</li>
+<li>Context injection</li>
+<li>Security validation</li>
+<li>Template expansion</li>
+</ul>
+<h3 id="example-implementation_1">Example Implementation<a class="headerlink" href="#example-implementation_1" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_prompt_submit.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span>
+<span class="normal"><a href="#__codelineno-1-40">40</a></span>
+<span class="normal"><a href="#__codelineno-1-41">41</a></span>
+<span class="normal"><a href="#__codelineno-1-42">42</a></span>
+<span class="normal"><a href="#__codelineno-1-43">43</a></span>
+<span class="normal"><a href="#__codelineno-1-44">44</a></span>
+<span class="normal"><a href="#__codelineno-1-45">45</a></span>
+<span class="normal"><a href="#__codelineno-1-46">46</a></span>
+<span class="normal"><a href="#__codelineno-1-47">47</a></span>
+<span class="normal"><a href="#__codelineno-1-48">48</a></span>
+<span class="normal"><a href="#__codelineno-1-49">49</a></span>
+<span class="normal"><a href="#__codelineno-1-50">50</a></span>
+<span class="normal"><a href="#__codelineno-1-51">51</a></span>
+<span class="normal"><a href="#__codelineno-1-52">52</a></span>
+<span class="normal"><a href="#__codelineno-1-53">53</a></span>
+<span class="normal"><a href="#__codelineno-1-54">54</a></span>
+<span class="normal"><a href="#__codelineno-1-55">55</a></span>
+<span class="normal"><a href="#__codelineno-1-56">56</a></span>
+<span class="normal"><a href="#__codelineno-1-57">57</a></span>
+<span class="normal"><a href="#__codelineno-1-58">58</a></span>
+<span class="normal"><a href="#__codelineno-1-59">59</a></span>
+<span class="normal"><a href="#__codelineno-1-60">60</a></span>
+<span class="normal"><a href="#__codelineno-1-61">61</a></span>
+<span class="normal"><a href="#__codelineno-1-62">62</a></span>
+<span class="normal"><a href="#__codelineno-1-63">63</a></span>
+<span class="normal"><a href="#__codelineno-1-64">64</a></span>
+<span class="normal"><a href="#__codelineno-1-65">65</a></span>
+<span class="normal"><a href="#__codelineno-1-66">66</a></span>
+<span class="normal"><a href="#__codelineno-1-67">67</a></span>
+<span class="normal"><a href="#__codelineno-1-68">68</a></span>
+<span class="normal"><a href="#__codelineno-1-69">69</a></span>
+<span class="normal"><a href="#__codelineno-1-70">70</a></span>
+<span class="normal"><a href="#__codelineno-1-71">71</a></span>
+<span class="normal"><a href="#__codelineno-1-72">72</a></span>
+<span class="normal"><a href="#__codelineno-1-73">73</a></span>
+<span class="normal"><a href="#__codelineno-1-74">74</a></span>
+<span class="normal"><a href="#__codelineno-1-75">75</a></span>
+<span class="normal"><a href="#__codelineno-1-76">76</a></span>
+<span class="normal"><a href="#__codelineno-1-77">77</a></span>
+<span class="normal"><a href="#__codelineno-1-78">78</a></span>
+<span class="normal"><a href="#__codelineno-1-79">79</a></span>
+<span class="normal"><a href="#__codelineno-1-80">80</a></span>
+<span class="normal"><a href="#__codelineno-1-81">81</a></span>
+<span class="normal"><a href="#__codelineno-1-82">82</a></span>
+<span class="normal"><a href="#__codelineno-1-83">83</a></span>
+<span class="normal"><a href="#__codelineno-1-84">84</a></span>
+<span class="normal"><a href="#__codelineno-1-85">85</a></span>
+<span class="normal"><a href="#__codelineno-1-86">86</a></span>
+<span class="normal"><a href="#__codelineno-1-87">87</a></span>
+<span class="normal"><a href="#__codelineno-1-88">88</a></span>
+<span class="normal"><a href="#__codelineno-1-89">89</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="ch">#!/usr/bin/env python3</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kn">import</span> <span class="nn">json</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kn">import</span> <span class="nn">sys</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="kn">import</span> <span class="nn">re</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">def</span> <span class="nf">user_prompt_submit</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Enhance and validate user prompts&quot;&quot;&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span class="n">prompt</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prompt&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;context&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span class="c1"># Security check</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>    <span class="k">if</span> <span class="n">contains_sensitive_info</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>        <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>            <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Prompt contains sensitive information&quot;</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>        <span class="p">}</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span class="c1"># Enhance prompt with context</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a>    <span class="n">enhanced_prompt</span> <span class="o">=</span> <span class="n">enhance_prompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a>    <span class="c1"># Add coding standards</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a>    <span class="k">if</span> <span class="n">is_coding_request</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a>        <span class="n">enhanced_prompt</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Please follow these standards:</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a>        <span class="n">enhanced_prompt</span> <span class="o">+=</span> <span class="s2">&quot;- Include comprehensive error handling</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a>        <span class="n">enhanced_prompt</span> <span class="o">+=</span> <span class="s2">&quot;- Add type hints for Python</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a>        <span class="n">enhanced_prompt</span> <span class="o">+=</span> <span class="s2">&quot;- Write clear docstrings</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a>        <span class="n">enhanced_prompt</span> <span class="o">+=</span> <span class="s2">&quot;- Include unit tests</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29"></a>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30"></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31"></a>        <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;continue&quot;</span><span class="p">,</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32"></a>        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">enhanced_prompt</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33"></a>    <span class="p">}</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34"></a>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="k">def</span> <span class="nf">contains_sensitive_info</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check for sensitive patterns&quot;&quot;&quot;</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37"></a>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38"></a>        <span class="sa">r</span><span class="s1">&#39;api[_-]?key&#39;</span><span class="p">,</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39"></a>        <span class="sa">r</span><span class="s1">&#39;password&#39;</span><span class="p">,</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40"></a>        <span class="sa">r</span><span class="s1">&#39;secret&#39;</span><span class="p">,</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41"></a>        <span class="sa">r</span><span class="s1">&#39;token&#39;</span><span class="p">,</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42"></a>        <span class="sa">r</span><span class="s1">&#39;credential&#39;</span>
+</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43"></a>    <span class="p">]</span>
+</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44"></a>
+</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45"></a>    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
+</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46"></a>        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
+</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47"></a>            <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48"></a>    <span class="k">return</span> <span class="kc">False</span>
+</span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49"></a>
+</span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="k">def</span> <span class="nf">enhance_prompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+</span><span id="__span-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Add contextual information&quot;&quot;&quot;</span>
+</span><span id="__span-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52"></a>    <span class="n">enhanced</span> <span class="o">=</span> <span class="n">prompt</span>
+</span><span id="__span-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53"></a>
+</span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54"></a>    <span class="c1"># Add project context</span>
+</span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55"></a>    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_type&quot;</span><span class="p">):</span>
+</span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56"></a>        <span class="n">enhanced</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[Project: </span><span class="si">{</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;project_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="si">{</span><span class="n">enhanced</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57"></a>
+</span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58"></a>    <span class="c1"># Expand templates</span>
+</span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59"></a>    <span class="n">enhanced</span> <span class="o">=</span> <span class="n">expand_templates</span><span class="p">(</span><span class="n">enhanced</span><span class="p">)</span>
+</span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60"></a>
+</span><span id="__span-1-61"><a id="__codelineno-1-61" name="__codelineno-1-61"></a>    <span class="k">return</span> <span class="n">enhanced</span>
+</span><span id="__span-1-62"><a id="__codelineno-1-62" name="__codelineno-1-62"></a>
+</span><span id="__span-1-63"><a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="k">def</span> <span class="nf">expand_templates</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+</span><span id="__span-1-64"><a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Expand prompt templates&quot;&quot;&quot;</span>
+</span><span id="__span-1-65"><a id="__codelineno-1-65" name="__codelineno-1-65"></a>    <span class="n">templates</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-1-66"><a id="__codelineno-1-66" name="__codelineno-1-66"></a>        <span class="s2">&quot;@security&quot;</span><span class="p">:</span> <span class="s2">&quot;Ensure security best practices including input validation and sanitization&quot;</span><span class="p">,</span>
+</span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67"></a>        <span class="s2">&quot;@performance&quot;</span><span class="p">:</span> <span class="s2">&quot;Optimize for performance and scalability&quot;</span><span class="p">,</span>
+</span><span id="__span-1-68"><a id="__codelineno-1-68" name="__codelineno-1-68"></a>        <span class="s2">&quot;@test&quot;</span><span class="p">:</span> <span class="s2">&quot;Include comprehensive unit and integration tests&quot;</span>
+</span><span id="__span-1-69"><a id="__codelineno-1-69" name="__codelineno-1-69"></a>    <span class="p">}</span>
+</span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70"></a>
+</span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71"></a>    <span class="k">for</span> <span class="n">template</span><span class="p">,</span> <span class="n">expansion</span> <span class="ow">in</span> <span class="n">templates</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72"></a>        <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">expansion</span><span class="p">)</span>
+</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73"></a>
+</span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74"></a>    <span class="k">return</span> <span class="n">prompt</span>
+</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75"></a>
+</span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="k">def</span> <span class="nf">is_coding_request</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+</span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect if prompt is asking for code&quot;&quot;&quot;</span>
+</span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78"></a>    <span class="n">coding_keywords</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-79"><a id="__codelineno-1-79" name="__codelineno-1-79"></a>        <span class="s1">&#39;function&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;implement&#39;</span><span class="p">,</span> <span class="s1">&#39;create&#39;</span><span class="p">,</span> <span class="s1">&#39;build&#39;</span><span class="p">,</span>
+</span><span id="__span-1-80"><a id="__codelineno-1-80" name="__codelineno-1-80"></a>        <span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;program&#39;</span><span class="p">,</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="s1">&#39;api&#39;</span><span class="p">,</span> <span class="s1">&#39;endpoint&#39;</span>
+</span><span id="__span-1-81"><a id="__codelineno-1-81" name="__codelineno-1-81"></a>    <span class="p">]</span>
+</span><span id="__span-1-82"><a id="__codelineno-1-82" name="__codelineno-1-82"></a>
+</span><span id="__span-1-83"><a id="__codelineno-1-83" name="__codelineno-1-83"></a>    <span class="n">prompt_lower</span> <span class="o">=</span> <span class="n">prompt</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="__span-1-84"><a id="__codelineno-1-84" name="__codelineno-1-84"></a>    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">prompt_lower</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">coding_keywords</span><span class="p">)</span>
+</span><span id="__span-1-85"><a id="__codelineno-1-85" name="__codelineno-1-85"></a>
+</span><span id="__span-1-86"><a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-1-87"><a id="__codelineno-1-87" name="__codelineno-1-87"></a>    <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span><span id="__span-1-88"><a id="__codelineno-1-88" name="__codelineno-1-88"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">user_prompt_submit</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="__span-1-89"><a id="__codelineno-1-89" name="__codelineno-1-89"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="3-pretooluse">3. PreToolUse<a class="headerlink" href="#3-pretooluse" title="Permanent link">&para;</a></h2>
+<p>Critical security gate before any tool execution.</p>
+<h3 id="security-features">Security Features<a class="headerlink" href="#security-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Command validation</li>
+<li>Path traversal prevention</li>
+<li>Resource limits</li>
+<li>Permission checking</li>
+</ul>
+<h3 id="example-implementation_2">Example Implementation<a class="headerlink" href="#example-implementation_2" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pre_tool_use.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-2-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-2-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-2-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-2-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-2-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-2-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-2-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-2-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-2-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-2-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-2-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-2-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-2-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-2-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-2-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-2-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-2-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-2-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-2-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-2-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-2-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-2-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-2-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-2-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-2-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-2-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-2-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-2-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-2-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-2-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-2-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-2-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-2-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-2-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-2-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-2-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-2-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-2-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-2-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-2-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-2-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-2-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-2-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-2-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-2-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-2-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-2-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-2-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-2-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-2-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-2-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-2-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-2-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-2-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-2-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-2-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-2-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-2-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-2-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-2-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-2-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-2-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-2-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-2-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-2-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-2-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-2-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-2-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-2-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-2-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-2-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-2-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-2-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-2-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-2-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-2-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-2-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-2-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-2-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-2-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-2-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-2-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-2-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-2-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-2-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-2-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-2-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-2-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-2-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-2-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-2-100">100</a></span>
+<span class="normal"><a href="#__codelineno-2-101">101</a></span>
+<span class="normal"><a href="#__codelineno-2-102">102</a></span>
+<span class="normal"><a href="#__codelineno-2-103">103</a></span>
+<span class="normal"><a href="#__codelineno-2-104">104</a></span>
+<span class="normal"><a href="#__codelineno-2-105">105</a></span>
+<span class="normal"><a href="#__codelineno-2-106">106</a></span>
+<span class="normal"><a href="#__codelineno-2-107">107</a></span>
+<span class="normal"><a href="#__codelineno-2-108">108</a></span>
+<span class="normal"><a href="#__codelineno-2-109">109</a></span>
+<span class="normal"><a href="#__codelineno-2-110">110</a></span>
+<span class="normal"><a href="#__codelineno-2-111">111</a></span>
+<span class="normal"><a href="#__codelineno-2-112">112</a></span>
+<span class="normal"><a href="#__codelineno-2-113">113</a></span>
+<span class="normal"><a href="#__codelineno-2-114">114</a></span>
+<span class="normal"><a href="#__codelineno-2-115">115</a></span>
+<span class="normal"><a href="#__codelineno-2-116">116</a></span>
+<span class="normal"><a href="#__codelineno-2-117">117</a></span>
+<span class="normal"><a href="#__codelineno-2-118">118</a></span>
+<span class="normal"><a href="#__codelineno-2-119">119</a></span>
+<span class="normal"><a href="#__codelineno-2-120">120</a></span>
+<span class="normal"><a href="#__codelineno-2-121">121</a></span>
+<span class="normal"><a href="#__codelineno-2-122">122</a></span>
+<span class="normal"><a href="#__codelineno-2-123">123</a></span>
+<span class="normal"><a href="#__codelineno-2-124">124</a></span>
+<span class="normal"><a href="#__codelineno-2-125">125</a></span>
+<span class="normal"><a href="#__codelineno-2-126">126</a></span>
+<span class="normal"><a href="#__codelineno-2-127">127</a></span>
+<span class="normal"><a href="#__codelineno-2-128">128</a></span>
+<span class="normal"><a href="#__codelineno-2-129">129</a></span>
+<span class="normal"><a href="#__codelineno-2-130">130</a></span>
+<span class="normal"><a href="#__codelineno-2-131">131</a></span>
+<span class="normal"><a href="#__codelineno-2-132">132</a></span>
+<span class="normal"><a href="#__codelineno-2-133">133</a></span>
+<span class="normal"><a href="#__codelineno-2-134">134</a></span>
+<span class="normal"><a href="#__codelineno-2-135">135</a></span>
+<span class="normal"><a href="#__codelineno-2-136">136</a></span>
+<span class="normal"><a href="#__codelineno-2-137">137</a></span>
+<span class="normal"><a href="#__codelineno-2-138">138</a></span>
+<span class="normal"><a href="#__codelineno-2-139">139</a></span>
+<span class="normal"><a href="#__codelineno-2-140">140</a></span>
+<span class="normal"><a href="#__codelineno-2-141">141</a></span>
+<span class="normal"><a href="#__codelineno-2-142">142</a></span>
+<span class="normal"><a href="#__codelineno-2-143">143</a></span>
+<span class="normal"><a href="#__codelineno-2-144">144</a></span>
+<span class="normal"><a href="#__codelineno-2-145">145</a></span>
+<span class="normal"><a href="#__codelineno-2-146">146</a></span>
+<span class="normal"><a href="#__codelineno-2-147">147</a></span>
+<span class="normal"><a href="#__codelineno-2-148">148</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="ch">#!/usr/bin/env python3</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="kn">import</span> <span class="nn">json</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="kn">import</span> <span class="nn">sys</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="kn">import</span> <span class="nn">re</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="kn">import</span> <span class="nn">os</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="k">class</span> <span class="nc">SecurityValidator</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Comprehensive security validation&quot;&quot;&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>    <span class="n">DANGEROUS_COMMANDS</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>        <span class="sa">r</span><span class="s1">&#39;rm\s+-rf\s+/&#39;</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a>        <span class="sa">r</span><span class="s1">&#39;rm\s+-rf\s+~&#39;</span><span class="p">,</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>        <span class="sa">r</span><span class="s1">&#39;chmod\s+777&#39;</span><span class="p">,</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>        <span class="sa">r</span><span class="s1">&#39;sudo\s+&#39;</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a>        <span class="sa">r</span><span class="s1">&#39;curl.*\|\s*sh&#39;</span><span class="p">,</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a>        <span class="sa">r</span><span class="s1">&#39;wget.*\|\s*sh&#39;</span><span class="p">,</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>        <span class="sa">r</span><span class="s1">&#39;eval\(&#39;</span><span class="p">,</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a>        <span class="sa">r</span><span class="s1">&#39;exec\(&#39;</span><span class="p">,</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a>    <span class="p">]</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a>    <span class="n">PROTECTED_PATHS</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a>        <span class="s1">&#39;/etc&#39;</span><span class="p">,</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>        <span class="s1">&#39;/sys&#39;</span><span class="p">,</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a>        <span class="s1">&#39;/proc&#39;</span><span class="p">,</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a>        <span class="s1">&#39;~/.ssh&#39;</span><span class="p">,</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a>        <span class="s1">&#39;~/.aws&#39;</span><span class="p">,</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a>    <span class="p">]</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a>    <span class="n">PROTECTED_FILES</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a>        <span class="s1">&#39;.env&#39;</span><span class="p">,</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32"></a>        <span class="s1">&#39;credentials&#39;</span><span class="p">,</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33"></a>        <span class="s1">&#39;secrets&#39;</span><span class="p">,</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34"></a>        <span class="s1">&#39;private_key&#39;</span><span class="p">,</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35"></a>    <span class="p">]</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36"></a>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37"></a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Main validation entry point&quot;&quot;&quot;</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39"></a>        <span class="n">tool_name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">)</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40"></a>        <span class="n">params</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41"></a>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42"></a>        <span class="n">validators</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43"></a>            <span class="s2">&quot;Bash&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_bash</span><span class="p">,</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44"></a>            <span class="s2">&quot;Write&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_write</span><span class="p">,</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45"></a>            <span class="s2">&quot;Edit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_edit</span><span class="p">,</span>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46"></a>            <span class="s2">&quot;MultiEdit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_edit</span><span class="p">,</span>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47"></a>            <span class="s2">&quot;Delete&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_delete</span><span class="p">,</span>
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48"></a>        <span class="p">}</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49"></a>
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50"></a>        <span class="k">if</span> <span class="n">tool_name</span> <span class="ow">in</span> <span class="n">validators</span><span class="p">:</span>
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51"></a>            <span class="k">return</span> <span class="n">validators</span><span class="p">[</span><span class="n">tool_name</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52"></a>
+</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;allow&quot;</span><span class="p">}</span>
+</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54"></a>
+</span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55"></a>    <span class="k">def</span> <span class="nf">validate_bash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate bash commands&quot;&quot;&quot;</span>
+</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57"></a>        <span class="n">command</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58"></a>
+</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59"></a>        <span class="c1"># Check dangerous patterns</span>
+</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60"></a>        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DANGEROUS_COMMANDS</span><span class="p">:</span>
+</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61"></a>            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
+</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62"></a>                <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63"></a>                    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64"></a>                    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Dangerous command pattern detected: </span><span class="si">{</span><span class="n">pattern</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65"></a>                <span class="p">}</span>
+</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66"></a>
+</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67"></a>        <span class="c1"># Check resource limits</span>
+</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68"></a>        <span class="k">if</span> <span class="s2">&quot;fork&quot;</span> <span class="ow">in</span> <span class="n">command</span> <span class="ow">or</span> <span class="s2">&quot;:(){ :|:&amp; };:&quot;</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69"></a>            <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70"></a>                <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71"></a>                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Fork bomb detected&quot;</span>
+</span><span id="__span-2-72"><a id="__codelineno-2-72" name="__codelineno-2-72"></a>            <span class="p">}</span>
+</span><span id="__span-2-73"><a id="__codelineno-2-73" name="__codelineno-2-73"></a>
+</span><span id="__span-2-74"><a id="__codelineno-2-74" name="__codelineno-2-74"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;allow&quot;</span><span class="p">}</span>
+</span><span id="__span-2-75"><a id="__codelineno-2-75" name="__codelineno-2-75"></a>
+</span><span id="__span-2-76"><a id="__codelineno-2-76" name="__codelineno-2-76"></a>    <span class="k">def</span> <span class="nf">validate_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</span><span id="__span-2-77"><a id="__codelineno-2-77" name="__codelineno-2-77"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate file write operations&quot;&quot;&quot;</span>
+</span><span id="__span-2-78"><a id="__codelineno-2-78" name="__codelineno-2-78"></a>        <span class="n">file_path</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file_path&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-2-79"><a id="__codelineno-2-79" name="__codelineno-2-79"></a>
+</span><span id="__span-2-80"><a id="__codelineno-2-80" name="__codelineno-2-80"></a>        <span class="c1"># Check protected files</span>
+</span><span id="__span-2-81"><a id="__codelineno-2-81" name="__codelineno-2-81"></a>        <span class="k">for</span> <span class="n">protected</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">PROTECTED_FILES</span><span class="p">:</span>
+</span><span id="__span-2-82"><a id="__codelineno-2-82" name="__codelineno-2-82"></a>            <span class="k">if</span> <span class="n">protected</span> <span class="ow">in</span> <span class="n">file_path</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+</span><span id="__span-2-83"><a id="__codelineno-2-83" name="__codelineno-2-83"></a>                <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-2-84"><a id="__codelineno-2-84" name="__codelineno-2-84"></a>                    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-2-85"><a id="__codelineno-2-85" name="__codelineno-2-85"></a>                    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Cannot modify protected file: </span><span class="si">{</span><span class="n">protected</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-2-86"><a id="__codelineno-2-86" name="__codelineno-2-86"></a>                <span class="p">}</span>
+</span><span id="__span-2-87"><a id="__codelineno-2-87" name="__codelineno-2-87"></a>
+</span><span id="__span-2-88"><a id="__codelineno-2-88" name="__codelineno-2-88"></a>        <span class="c1"># Check protected paths</span>
+</span><span id="__span-2-89"><a id="__codelineno-2-89" name="__codelineno-2-89"></a>        <span class="k">for</span> <span class="n">protected_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">PROTECTED_PATHS</span><span class="p">:</span>
+</span><span id="__span-2-90"><a id="__codelineno-2-90" name="__codelineno-2-90"></a>            <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">protected_path</span><span class="p">):</span>
+</span><span id="__span-2-91"><a id="__codelineno-2-91" name="__codelineno-2-91"></a>                <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-2-92"><a id="__codelineno-2-92" name="__codelineno-2-92"></a>                    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-2-93"><a id="__codelineno-2-93" name="__codelineno-2-93"></a>                    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Cannot write to protected path: </span><span class="si">{</span><span class="n">protected_path</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-2-94"><a id="__codelineno-2-94" name="__codelineno-2-94"></a>                <span class="p">}</span>
+</span><span id="__span-2-95"><a id="__codelineno-2-95" name="__codelineno-2-95"></a>
+</span><span id="__span-2-96"><a id="__codelineno-2-96" name="__codelineno-2-96"></a>        <span class="c1"># Check path traversal</span>
+</span><span id="__span-2-97"><a id="__codelineno-2-97" name="__codelineno-2-97"></a>        <span class="k">if</span> <span class="s2">&quot;../&quot;</span> <span class="ow">in</span> <span class="n">file_path</span><span class="p">:</span>
+</span><span id="__span-2-98"><a id="__codelineno-2-98" name="__codelineno-2-98"></a>            <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-2-99"><a id="__codelineno-2-99" name="__codelineno-2-99"></a>                <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-2-100"><a id="__codelineno-2-100" name="__codelineno-2-100"></a>                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Path traversal detected&quot;</span>
+</span><span id="__span-2-101"><a id="__codelineno-2-101" name="__codelineno-2-101"></a>            <span class="p">}</span>
+</span><span id="__span-2-102"><a id="__codelineno-2-102" name="__codelineno-2-102"></a>
+</span><span id="__span-2-103"><a id="__codelineno-2-103" name="__codelineno-2-103"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;allow&quot;</span><span class="p">}</span>
+</span><span id="__span-2-104"><a id="__codelineno-2-104" name="__codelineno-2-104"></a>
+</span><span id="__span-2-105"><a id="__codelineno-2-105" name="__codelineno-2-105"></a>    <span class="k">def</span> <span class="nf">validate_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</span><span id="__span-2-106"><a id="__codelineno-2-106" name="__codelineno-2-106"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate file edit operations&quot;&quot;&quot;</span>
+</span><span id="__span-2-107"><a id="__codelineno-2-107" name="__codelineno-2-107"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_write</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-2-108"><a id="__codelineno-2-108" name="__codelineno-2-108"></a>
+</span><span id="__span-2-109"><a id="__codelineno-2-109" name="__codelineno-2-109"></a>    <span class="k">def</span> <span class="nf">validate_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</span><span id="__span-2-110"><a id="__codelineno-2-110" name="__codelineno-2-110"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate delete operations&quot;&quot;&quot;</span>
+</span><span id="__span-2-111"><a id="__codelineno-2-111" name="__codelineno-2-111"></a>        <span class="n">file_path</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file_path&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-2-112"><a id="__codelineno-2-112" name="__codelineno-2-112"></a>
+</span><span id="__span-2-113"><a id="__codelineno-2-113" name="__codelineno-2-113"></a>        <span class="c1"># Extra strict for deletions</span>
+</span><span id="__span-2-114"><a id="__codelineno-2-114" name="__codelineno-2-114"></a>        <span class="k">if</span> <span class="n">file_path</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span> <span class="ow">or</span> <span class="n">file_path</span> <span class="o">==</span> <span class="s2">&quot;~&quot;</span><span class="p">:</span>
+</span><span id="__span-2-115"><a id="__codelineno-2-115" name="__codelineno-2-115"></a>            <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-2-116"><a id="__codelineno-2-116" name="__codelineno-2-116"></a>                <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+</span><span id="__span-2-117"><a id="__codelineno-2-117" name="__codelineno-2-117"></a>                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Cannot delete root directories&quot;</span>
+</span><span id="__span-2-118"><a id="__codelineno-2-118" name="__codelineno-2-118"></a>            <span class="p">}</span>
+</span><span id="__span-2-119"><a id="__codelineno-2-119" name="__codelineno-2-119"></a>
+</span><span id="__span-2-120"><a id="__codelineno-2-120" name="__codelineno-2-120"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_write</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-2-121"><a id="__codelineno-2-121" name="__codelineno-2-121"></a>
+</span><span id="__span-2-122"><a id="__codelineno-2-122" name="__codelineno-2-122"></a><span class="k">def</span> <span class="nf">pre_tool_use</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+</span><span id="__span-2-123"><a id="__codelineno-2-123" name="__codelineno-2-123"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Main hook entry point&quot;&quot;&quot;</span>
+</span><span id="__span-2-124"><a id="__codelineno-2-124" name="__codelineno-2-124"></a>    <span class="n">validator</span> <span class="o">=</span> <span class="n">SecurityValidator</span><span class="p">()</span>
+</span><span id="__span-2-125"><a id="__codelineno-2-125" name="__codelineno-2-125"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="__span-2-126"><a id="__codelineno-2-126" name="__codelineno-2-126"></a>
+</span><span id="__span-2-127"><a id="__codelineno-2-127" name="__codelineno-2-127"></a>    <span class="c1"># Log all tool use attempts</span>
+</span><span id="__span-2-128"><a id="__codelineno-2-128" name="__codelineno-2-128"></a>    <span class="n">log_tool_use</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</span><span id="__span-2-129"><a id="__codelineno-2-129" name="__codelineno-2-129"></a>
+</span><span id="__span-2-130"><a id="__codelineno-2-130" name="__codelineno-2-130"></a>    <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-2-131"><a id="__codelineno-2-131" name="__codelineno-2-131"></a>
+</span><span id="__span-2-132"><a id="__codelineno-2-132" name="__codelineno-2-132"></a><span class="k">def</span> <span class="nf">log_tool_use</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+</span><span id="__span-2-133"><a id="__codelineno-2-133" name="__codelineno-2-133"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Log tool use for audit&quot;&quot;&quot;</span>
+</span><span id="__span-2-134"><a id="__codelineno-2-134" name="__codelineno-2-134"></a>    <span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-2-135"><a id="__codelineno-2-135" name="__codelineno-2-135"></a>    <span class="n">log_entry</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-136"><a id="__codelineno-2-136" name="__codelineno-2-136"></a>        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span>
+</span><span id="__span-2-137"><a id="__codelineno-2-137" name="__codelineno-2-137"></a>        <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">),</span>
+</span><span id="__span-2-138"><a id="__codelineno-2-138" name="__codelineno-2-138"></a>        <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params&quot;</span><span class="p">),</span>
+</span><span id="__span-2-139"><a id="__codelineno-2-139" name="__codelineno-2-139"></a>        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span>
+</span><span id="__span-2-140"><a id="__codelineno-2-140" name="__codelineno-2-140"></a>    <span class="p">}</span>
+</span><span id="__span-2-141"><a id="__codelineno-2-141" name="__codelineno-2-141"></a>
+</span><span id="__span-2-142"><a id="__codelineno-2-142" name="__codelineno-2-142"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tool_audit.log&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-2-143"><a id="__codelineno-2-143" name="__codelineno-2-143"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">log_entry</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-2-144"><a id="__codelineno-2-144" name="__codelineno-2-144"></a>
+</span><span id="__span-2-145"><a id="__codelineno-2-145" name="__codelineno-2-145"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-2-146"><a id="__codelineno-2-146" name="__codelineno-2-146"></a>    <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span><span id="__span-2-147"><a id="__codelineno-2-147" name="__codelineno-2-147"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">pre_tool_use</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="__span-2-148"><a id="__codelineno-2-148" name="__codelineno-2-148"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="4-posttooluse">4. PostToolUse<a class="headerlink" href="#4-posttooluse" title="Permanent link">&para;</a></h2>
+<p>Validates and processes tool execution results.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">post_tool_use.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span>
+<span class="normal"><a href="#__codelineno-3-51">51</a></span>
+<span class="normal"><a href="#__codelineno-3-52">52</a></span>
+<span class="normal"><a href="#__codelineno-3-53">53</a></span>
+<span class="normal"><a href="#__codelineno-3-54">54</a></span>
+<span class="normal"><a href="#__codelineno-3-55">55</a></span>
+<span class="normal"><a href="#__codelineno-3-56">56</a></span>
+<span class="normal"><a href="#__codelineno-3-57">57</a></span>
+<span class="normal"><a href="#__codelineno-3-58">58</a></span>
+<span class="normal"><a href="#__codelineno-3-59">59</a></span>
+<span class="normal"><a href="#__codelineno-3-60">60</a></span>
+<span class="normal"><a href="#__codelineno-3-61">61</a></span>
+<span class="normal"><a href="#__codelineno-3-62">62</a></span>
+<span class="normal"><a href="#__codelineno-3-63">63</a></span>
+<span class="normal"><a href="#__codelineno-3-64">64</a></span>
+<span class="normal"><a href="#__codelineno-3-65">65</a></span>
+<span class="normal"><a href="#__codelineno-3-66">66</a></span>
+<span class="normal"><a href="#__codelineno-3-67">67</a></span>
+<span class="normal"><a href="#__codelineno-3-68">68</a></span>
+<span class="normal"><a href="#__codelineno-3-69">69</a></span>
+<span class="normal"><a href="#__codelineno-3-70">70</a></span>
+<span class="normal"><a href="#__codelineno-3-71">71</a></span>
+<span class="normal"><a href="#__codelineno-3-72">72</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="ch">#!/usr/bin/env python3</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="kn">import</span> <span class="nn">json</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="kn">import</span> <span class="nn">sys</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="kn">import</span> <span class="nn">hashlib</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="k">def</span> <span class="nf">post_tool_use</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Process tool execution results&quot;&quot;&quot;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>    <span class="n">tool_name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">)</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a>    <span class="n">duration</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration_ms&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a>    <span class="c1"># Check for errors</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a>    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">):</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a>        <span class="n">handle_error</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">])</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a>    <span class="c1"># Validate output</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">validate_output</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a>        <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a>            <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;retry&quot;</span><span class="p">,</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a>            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid output detected&quot;</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a>        <span class="p">}</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a>    <span class="c1"># Track metrics</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a>    <span class="n">track_metrics</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a>    <span class="c1"># Cache results if appropriate</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a>    <span class="k">if</span> <span class="n">should_cache</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a>        <span class="n">cache_result</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;continue&quot;</span><span class="p">}</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32"></a>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="k">def</span> <span class="nf">validate_output</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate tool output&quot;&quot;&quot;</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35"></a>    <span class="c1"># Check for sensitive data in output</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36"></a>    <span class="n">output_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37"></a>    <span class="n">sensitive_patterns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;api_key&quot;</span><span class="p">,</span> <span class="s2">&quot;secret&quot;</span><span class="p">]</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38"></a>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39"></a>    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">sensitive_patterns</span><span class="p">:</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40"></a>        <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">output_str</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41"></a>            <span class="c1"># Redact sensitive information</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42"></a>            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;[REDACTED]&quot;</span>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43"></a>            <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44"></a>
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45"></a>    <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46"></a>
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="k">def</span> <span class="nf">track_metrics</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">duration</span><span class="p">):</span>
+</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Track performance metrics&quot;&quot;&quot;</span>
+</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49"></a>    <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50"></a>        <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="n">tool_name</span><span class="p">,</span>
+</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51"></a>        <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
+</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52"></a>        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53"></a>    <span class="p">}</span>
+</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54"></a>
+</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55"></a>    <span class="c1"># Send to monitoring</span>
+</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56"></a>    <span class="n">send_to_monitoring</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+</span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57"></a>
+</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58"></a><span class="k">def</span> <span class="nf">cache_result</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache for identical requests&quot;&quot;&quot;</span>
+</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60"></a>    <span class="n">cache_key</span> <span class="o">=</span> <span class="n">generate_cache_key</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61"></a>    <span class="c1"># Store in cache</span>
+</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62"></a>    <span class="k">pass</span>
+</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63"></a>
+</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64"></a><span class="k">def</span> <span class="nf">generate_cache_key</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate cache key from event&quot;&quot;&quot;</span>
+</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66"></a>    <span class="n">key_data</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;tool_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67"></a>    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">key_data</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68"></a>
+</span><span id="__span-3-69"><a id="__codelineno-3-69" name="__codelineno-3-69"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-3-70"><a id="__codelineno-3-70" name="__codelineno-3-70"></a>    <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span><span id="__span-3-71"><a id="__codelineno-3-71" name="__codelineno-3-71"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">post_tool_use</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="__span-3-72"><a id="__codelineno-3-72" name="__codelineno-3-72"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="5-additional-lifecycle-events">5. Additional Lifecycle Events<a class="headerlink" href="#5-additional-lifecycle-events" title="Permanent link">&para;</a></h2>
+<h3 id="notification">Notification<a class="headerlink" href="#notification" title="Permanent link">&para;</a></h3>
+<p>Handles Claude's notifications and alerts.</p>
+<h3 id="stop">Stop<a class="headerlink" href="#stop" title="Permanent link">&para;</a></h3>
+<p>Executes when Claude finishes processing.</p>
+<h3 id="subagentstop">SubagentStop<a class="headerlink" href="#subagentstop" title="Permanent link">&para;</a></h3>
+<p>Manages subagent completion.</p>
+<h3 id="precompact">PreCompact<a class="headerlink" href="#precompact" title="Permanent link">&para;</a></h3>
+<p>Optimizes context before token limits.</p>
+<h2 id="hook-execution-order">Hook Execution Order<a class="headerlink" href="#hook-execution-order" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>SessionStart</strong> → Once per session</li>
+<li><strong>UserPromptSubmit</strong> → Each user input</li>
+<li><strong>PreToolUse</strong> → Before each tool</li>
+<li><strong>PostToolUse</strong> → After each tool</li>
+<li><strong>Notification</strong> → As needed</li>
+<li><strong>Stop</strong> → End of processing</li>
+<li><strong>SubagentStop</strong> → Subagent completion</li>
+<li><strong>PreCompact</strong> → Context management</li>
+</ol>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Chain of Responsibility</p>
+<p>Each hook should focus on a single responsibility</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Performance Impact</p>
+<p>Hooks run synchronously - keep them fast</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Fail Safe</p>
+<p>Always return valid JSON, default to allowing actions</p>
+</div>
+<h2 id="next-security-patterns">Next: <a href="security.md">Security Patterns →</a><a class="headerlink" href="#next-security-patterns" title="Permanent link">&para;</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2025 <a href="https://github.com/looptech-ai" target="_blank" rel="noopener">LoopTech AI</a>
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/looptech-ai" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://youtube.com/@looptech-ai" target="_blank" rel="noopener" title="youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/loopy-agents" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541ZM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241Zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

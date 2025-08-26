@@ -1,0 +1,241 @@
+/* Custom styles for Loopy Agents documentation */
+
+/* Root variables for consistent theming */
+:root {
+  --md-primary-fg-color: #7c3aed;
+  --md-primary-fg-color--light: #8b5cf6;
+  --md-primary-fg-color--dark: #6d28d9;
+  --md-accent-fg-color: #06b6d4;
+  --md-accent-fg-color--transparent: #06b6d410;
+}
+
+/* Dark mode enhancements */
+[data-md-color-scheme="slate"] {
+  --md-hue: 250;
+  --md-default-bg-color: #0f0f17;
+  --md-default-bg-color--light: #1a1a2e;
+  --md-default-bg-color--lighter: #16213e;
+  --md-default-bg-color--lightest: #1f2937;
+  --md-code-bg-color: #1a1a2e;
+  --md-code-hl-color: #2d2d4d;
+}
+
+/* Enhanced code blocks */
+.highlight {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5em 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.highlight:before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  padding: 0.25em 0.75em;
+  background: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
+  font-size: 0.75em;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 1;
+}
+
+/* Copy button enhancement */
+.md-clipboard {
+  color: var(--md-default-fg-color--light);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.md-clipboard:hover {
+  color: var(--md-accent-fg-color);
+  transform: scale(1.1);
+}
+
+.md-clipboard:after {
+  content: "COPY";
+  position: absolute;
+  right: 2.5em;
+  padding: 0.25em 0.5em;
+  background: var(--md-code-bg-color);
+  color: var(--md-accent-fg-color);
+  font-size: 0.7em;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+
+.md-clipboard:hover:after {
+  opacity: 1;
+}
+
+/* Terminal-like code blocks */
+.language-bash .highlight,
+.language-shell .highlight,
+.language-console .highlight {
+  background: linear-gradient(145deg, #0f0f17 0%, #1a1a2e 100%);
+  border: 1px solid #2d2d4d;
+}
+
+.language-bash .highlight:before,
+.language-shell .highlight:before,
+.language-console .highlight:before {
+  content: "TERMINAL";
+  background: linear-gradient(90deg, #06b6d4, #3b82f6);
+  color: white;
+}
+
+/* Command prompt styling */
+.language-bash .gp,
+.language-console .gp {
+  color: #06b6d4;
+  font-weight: bold;
+  user-select: none;
+}
+
+/* Syntax highlighting improvements */
+.highlight .c { color: #6272a4; font-style: italic } /* Comment */
+.highlight .k { color: #ff79c6; font-weight: bold } /* Keyword */
+.highlight .o { color: #ff79c6 } /* Operator */
+.highlight .p { color: #f8f8f2 } /* Punctuation */
+.highlight .n { color: #f8f8f2 } /* Name */
+.highlight .s { color: #f1fa8c } /* String */
+.highlight .na { color: #50fa7b } /* Name.Attribute */
+.highlight .nb { color: #8be9fd; font-style: italic } /* Name.Builtin */
+.highlight .nc { color: #50fa7b } /* Name.Class */
+.highlight .no { color: #50fa7b } /* Name.Constant */
+.highlight .nd { color: #50fa7b } /* Name.Decorator */
+.highlight .ni { color: #f8f8f2 } /* Name.Entity */
+.highlight .ne { color: #ff5555 } /* Name.Exception */
+.highlight .nf { color: #50fa7b } /* Name.Function */
+.highlight .nl { color: #f8f8f2 } /* Name.Label */
+.highlight .nn { color: #f8f8f2 } /* Name.Namespace */
+
+/* Admonition enhancements */
+.md-typeset .admonition {
+  border-radius: 8px;
+  border-left: 4px solid;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.md-typeset .admonition.note {
+  border-left-color: var(--md-accent-fg-color);
+}
+
+.md-typeset .admonition.tip {
+  border-left-color: #10b981;
+}
+
+.md-typeset .admonition.warning {
+  border-left-color: #f59e0b;
+}
+
+.md-typeset .admonition.danger {
+  border-left-color: #ef4444;
+}
+
+/* Animated gradient for headers */
+.md-typeset h1 {
+  background: linear-gradient(90deg, #7c3aed, #06b6d4, #7c3aed);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Card-style sections */
+.md-typeset .md-content__inner {
+  padding: 2rem;
+}
+
+.md-typeset article > :is(h2, h3, h4, h5, h6) {
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+/* Enhanced tables */
+.md-typeset table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset table th {
+  background: var(--md-primary-fg-color--dark);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85em;
+}
+
+/* Hover effects for links */
+.md-typeset a {
+  position: relative;
+  transition: color 0.25s;
+}
+
+.md-typeset a:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* Tab content enhancement */
+.md-typeset .tabbed-content {
+  border-radius: 0 8px 8px 8px;
+  background: var(--md-code-bg-color);
+  padding: 1rem;
+  margin-top: -1px;
+}
+
+/* Search enhancement */
+.md-search__input {
+  border-radius: 24px;
+  background: var(--md-default-bg-color--lighter);
+}
+
+.md-search__input:focus {
+  box-shadow: 0 0 0 3px var(--md-accent-fg-color--transparent);
+}
+
+/* Navigation enhancement */
+.md-nav__item--active > .md-nav__link {
+  color: var(--md-accent-fg-color);
+  font-weight: 600;
+}
+
+.md-nav__link:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* Footer styling */
+.md-footer {
+  background: linear-gradient(180deg, var(--md-default-bg-color) 0%, var(--md-default-bg-color--light) 100%);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

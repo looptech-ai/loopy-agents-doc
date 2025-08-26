@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://looptech-ai.github.io/loopy-agents-doc/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://looptech-ai.github.io/loopy-agents-doc/getting-started/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://looptech-ai.github.io/loopy-agents-doc/agents/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://looptech-ai.github.io/loopy-agents-doc/hooks/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://looptech-ai.github.io/loopy-agents-doc/hooks/lifecycle/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://looptech-ai.github.io/loopy-agents-doc/mcp/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
